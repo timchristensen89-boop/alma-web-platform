@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Enquiry {
+  id          String   @id @default(cuid())
+  name        String
+  email       String
+  phone       String?
+  venue       String   @default("general")
+  enquiryType String   @default("general")
+  message     String
+  source      String   @default("website")
+  createdAt   DateTime @default(now())
+}
+
+model StaffOnboarding {
+  id                String   @id @default(cuid())
+  firstName         String
+  lastName          String
+  preferredName     String?
+  email             String
+  phone             String
+  venue             String
+  role              String
+  employmentType    String
+  startDate         String?
+  dateOfBirth       String?
+  address           String
+  emergencyName     String
+  emergencyPhone    String
+  emergencyRelation String?
+  rsaExpiry         String?
+  notes             String?
+  xeroEmployeeId    String?
+  xeroSyncStatus    String   @default("pending")
+  xeroSyncMessage   String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model StaffTimesheet {
+  id              String   @id @default(cuid())
+  employeeName    String
+  email           String
+  venue           String
+  weekEnding      String
+  mondayHours     Float    @default(0)
+  tuesdayHours    Float    @default(0)
+  wednesdayHours  Float    @default(0)
+  thursdayHours   Float    @default(0)
+  fridayHours     Float    @default(0)
+  saturdayHours   Float    @default(0)
+  sundayHours     Float    @default(0)
+  totalHours      Float
+  notes           String?
+  status          String   @default("submitted")
+  xeroSyncStatus  String   @default("not_configured")
+  xeroSyncMessage String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
